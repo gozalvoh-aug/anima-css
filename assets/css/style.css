@@ -1,0 +1,508 @@
+/* ============================================================
+   Las Olas Más Extremas del Mundo — style.css
+   Tema: surf oceánico profundo
+   Paleta: azul abismo / cian surf / arena / espuma
+   Tipografía: Bebas Neue (display) + DM Sans (cuerpo)
+
+   BREAKPOINTS:
+   < 576px   → mobile:  nav barra superior, galería 1 col
+   < 992px   → tablet:  nav lateral, galería 2 cols
+   ≥ 992px   → desktop: nav lateral, galería 4 cols
+   ============================================================ */
+
+/* ---------- Google Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+/* ---------- Reset & Variables ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Colores */
+  --ocean-deep:   #0a1628;   /* fondo principal */
+  --ocean-mid:    #0d2137;   /* nav / surface */
+  --ocean-panel:  #112944;   /* aside / cards */
+  --cyan-surf:    #00c9d4;   /* acento principal */
+  --cyan-light:   #7ee8ed;   /* acento suave */
+  --sand:         #e8dcc8;   /* texto cálido */
+  --foam:         #f0f4f8;   /* texto blanco espuma */
+  --muted:        #607b99;   /* texto secundario */
+  --border:       rgba(0, 201, 212, 0.18);
+  --shadow:       rgba(0, 0, 0, 0.45);
+
+  /* Tipografía */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Layout */
+  --nav-width:    260px;
+  --radius:       10px;
+  --transition:   0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Base ---------- */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--ocean-deep);
+  color: var(--foam);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   LAYOUT PRINCIPAL — CSS Grid
+   ┌──────────┬──────────────────────────┐
+   │          │  brand (título)          │
+   │  nav     ├──────────────────────────┤
+   │  lateral │  aside (filtros)         │
+   │          ├──────────────────────────┤
+   │          │  main  (galería)         │
+   ├──────────┤                          │
+   │  footer  │  ↑ cubre todo el alto    │
+   └──────────┴──────────────────────────┘
+   ============================================================ */
+.layout {
+  display: grid;
+  grid-template-columns: var(--nav-width) 1fr;
+  grid-template-rows: auto auto 1fr;
+  min-height: 100vh;
+  grid-template-areas:
+    "nav   brand"
+    "nav   aside"
+    "nav   main";
+}
+
+.navbar  { grid-area: nav;   }
+.brand   { grid-area: brand; }
+.filters { grid-area: aside; }
+.main    { grid-area: main;  }
+
+/* Footer fijo horizontal en la parte inferior de toda la pantalla */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 300;
+}
+
+/* ============================================================
+   NAV LATERAL
+   ============================================================ */
+.navbar {
+  width: var(--nav-width);
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 2rem 0 1.5rem;
+
+  background: var(--ocean-mid);
+  border-right: 1px solid var(--border);
+  z-index: 200;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0 1.25rem;
+}
+
+.logo .material-symbols-outlined {
+  font-size: 1.5rem;
+  color: var(--cyan-surf);
+  filter: drop-shadow(0 0 8px var(--cyan-surf));
+}
+
+/* Nav links list */
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 0.2rem;
+  padding: 0 0.75rem;
+  flex: 1;
+}
+
+/* Botones de destino */
+.nav-links a {
+  text-decoration: none;
+  display: block;
+}
+
+.menu-button {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition),
+              padding-left var(--transition);
+  letter-spacing: 0.03em;
+}
+
+.menu-button:hover {
+  background: rgba(0, 201, 212, 0.1);
+  color: var(--cyan-surf);
+  padding-left: 1.4rem;
+}
+
+/* Botón Contacto */
+.nav-links > button {
+  margin: 1rem 0 0;
+  padding: 0.65rem 1rem;
+  background: var(--cyan-surf);
+  color: var(--ocean-deep);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background var(--transition), transform 0.15s;
+}
+
+.nav-links > button:hover {
+  background: var(--cyan-light);
+  transform: scale(1.03);
+}
+
+/* ============================================================
+   BRAND — título principal
+   ============================================================ */
+.brand {
+  padding: 2.5rem 2rem 1.25rem;
+  background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foam);
+  line-height: 1.1;
+  /* Gradiente en el texto */
+  background: linear-gradient(90deg, var(--foam) 30%, var(--cyan-surf) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   ASIDE — filtros
+   ============================================================ */
+.filters {
+  background: var(--ocean-panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filters label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.filters select {
+  background: var(--ocean-mid);
+  color: var(--foam);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.filters select:focus { border-color: var(--cyan-surf); }
+
+/* ============================================================
+   MAIN — galería
+   ============================================================ */
+.main {
+  padding: 2rem;
+  background: var(--ocean-deep);
+}
+
+.olas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* ============================================================
+   CARDS — SIGNATURE EFFECT
+   Blanco y negro en reposo → color completo en hover
+   + scale sutil que simula el levantamiento de la ola
+   ============================================================ */
+.olas > div {
+  background: var(--ocean-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: box-shadow var(--transition), transform var(--transition);
+  /* Vignette oceánico */
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+.olas > div:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 201, 212, 0.2),
+              0 4px 12px var(--shadow);
+}
+
+/* Imagen — blanco y negro → color en hover */
+.olas > div img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+
+  /* TRANSICIÓN SIGNATURE: escala de grises → color completo */
+  filter: grayscale(100%) brightness(0.85) contrast(1.1);
+  transform: scale(1.04);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.olas > div:hover img {
+  filter: grayscale(0%) brightness(1) contrast(1);
+  transform: scale(1);
+}
+
+/* Contenido de la card */
+.card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.card-content h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan-surf);
+  text-transform: uppercase;
+}
+
+.card-content p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--muted);
+  flex: 1;
+
+  /* Limitar a 4 líneas con fade */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-content button {
+  margin-top: auto;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--cyan-surf);
+  color: var(--cyan-surf);
+  border-radius: 6px;
+  padding: 0.45rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition),
+              transform 0.15s;
+}
+
+.card-content button:hover {
+  background: var(--cyan-surf);
+  color: var(--ocean-deep);
+  transform: scale(1.04);
+}
+
+/* ============================================================
+   FOOTER — barra horizontal fija, ancho completo, parte inferior
+   ============================================================ */
+.footer {
+  background: var(--ocean-mid);
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.75rem 2rem;
+}
+
+/* Redes sociales */
+.social-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: background var(--transition), color var(--transition);
+}
+
+.social-link:hover        { background: rgba(255,255,255,0.06); color: var(--foam); }
+.social-link svg          { flex-shrink: 0; }
+
+.footer p {
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   @MEDIA — TABLET  < 992px
+   Nav lateral se mantiene | galería 2 columnas
+   ============================================================ */
+@media (max-width: 991px) {
+
+  :root { --nav-width: 220px; }
+
+  .olas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .brand h1 { font-size: 1.6rem; }
+}
+
+/* ============================================================
+   @MEDIA — MOBILE  < 576px
+   Nav → barra superior | galería 1 columna
+   ============================================================ */
+@media (max-width: 575px) {
+
+  /* Grid pasa a 1 sola columna */
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr auto;
+    grid-template-areas:
+      "nav"
+      "brand"
+      "aside"
+      "main"
+      "footer";
+  }
+
+  /* Nav horizontal en la parte superior */
+  .navbar {
+    width: 100%;
+    min-height: unset;
+    height: auto;
+    position: static;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    overflow: visible;
+  }
+
+  .logo {
+    margin-bottom: 0.75rem;
+    padding: 0;
+
+  }
+
+  .nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+  }
+
+  .nav-links a { width: auto; }
+
+  .menu-button {
+    width: auto;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  .menu-button:hover { padding-left: 0.75rem; }
+
+  .nav-links > button {
+    margin: 0;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* Galería 1 columna */
+  .olas { grid-template-columns: 1fr; gap: 1rem; }
+
+  /* Brand compacto */
+  .brand { padding: 1.25rem 1rem 0.75rem; }
+  .brand h1 { font-size: 1.4rem; }
+
+  /* Footer horizontal en mobile */
+  .footer {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.6rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .social-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
