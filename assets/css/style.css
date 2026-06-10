@@ -89,6 +89,7 @@ body {
   left: 0;
   width: 100%;
   z-index: 300;
+  height: 35px;
 }
 
 /* ============================================================
@@ -172,8 +173,8 @@ body {
 
 /* Botón Contacto */
 .nav-links > button {
-  margin: 1rem 0 0;
-  padding: 0.65rem 1rem;
+  margin: 2rem 0 0;
+  padding: 0.5rem 1rem;
   background: var(--cyan-surf);
   color: var(--ocean-deep);
   border: none;
@@ -196,7 +197,7 @@ body {
    BRAND — título principal
    ============================================================ */
 .brand {
-  padding: 2.5rem 2rem 1.25rem;
+  padding: 1.5rem 2rem 1.25rem;
   background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
   border-bottom: 1px solid var(--border);
 }
@@ -221,7 +222,7 @@ body {
 .filters {
   background: var(--ocean-panel);
   border-bottom: 1px solid var(--border);
-  padding: 0.9rem 2rem;
+  padding: 0.4rem 2rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -314,6 +315,7 @@ body {
   flex-direction: column;
   gap: 0.6rem;
   flex: 1;
+  text-align: center;
 }
 
 .card-content h2 {
@@ -346,7 +348,7 @@ body {
   border-radius: 6px;
   padding: 0.45rem 1.1rem;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -373,7 +375,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem rem;
 }
 
 /* Redes sociales */
@@ -496,7 +498,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     padding: 0.6rem 1rem;
-    gap: 0.75rem;
+    gap: 0.9rem;
   }
 
   .social-links {
